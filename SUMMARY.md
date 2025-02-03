@@ -1,17 +1,18 @@
 # Table of contents
 
-* [Welcome](README.md)
+* [Welcome to Mishmash](README.md)
 
-## Getting Started
+## User Docs
 
-* [Quickstart](getting-started/quickstart.md)
-* [Publish your docs](getting-started/publish-your-docs.md)
+* [Quickstart](user-docs/quickstart.md)
+* [Publish your docs](user-docs/publish-your-docs.md)
 
-## Basics
+## Dev Docs
 
-* [Editor](basics/editor.md)
-* [Markdown](basics/markdown.md)
-* [Images & media](basics/images-and-media.md)
-* [Interactive blocks](basics/interactive-blocks.md)
-* [OpenAPI](basics/openapi.md)
-* [Integrations](basics/integrations.md)
+* [Deployment Setup](dev-docs/deployment-setup.md)
+* [Editor](dev-docs/editor.md)
+* [Markdown](dev-docs/markdown.md)
+* [Images & media](dev-docs/images-and-media.md)
+* [Interactive blocks](dev-docs/interactive-blocks.md)
+* [OpenAPI](dev-docs/openapi.md)
+* [Integrations](dev-docs/integrations.md)
