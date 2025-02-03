@@ -9,7 +9,7 @@
 
 ## Dev Docs
 
-* [Deployment Setup](dev-docs/deployment-setup.md)
+* [Docker Setup](dev-docs/docker-setup.md)
 * [Editor](dev-docs/editor.md)
 * [Markdown](dev-docs/markdown.md)
 * [Images & media](dev-docs/images-and-media.md)
