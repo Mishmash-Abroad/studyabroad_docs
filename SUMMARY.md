@@ -2,10 +2,10 @@
 
 * [Welcome to Mishmash](README.md)
 
-## User Docs
+## USER DOCS
 
-* [Quickstart](user-docs/quickstart.md)
-* [Publish your docs](user-docs/publish-your-docs.md)
+* [Student Guide](user-docs/student-guide.md)
+* [Admin Guide](user-docs/admin-guide.md)
 
 ## Dev Docs
 
