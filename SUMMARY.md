@@ -9,10 +9,5 @@
 
 ## Dev Docs
 
+* [Deployment Guide](dev-docs/deployment-guide.md)
 * [Docker Setup](dev-docs/docker-setup.md)
-* [Editor](dev-docs/editor.md)
-* [Markdown](dev-docs/markdown.md)
-* [Images & media](dev-docs/images-and-media.md)
-* [Interactive blocks](dev-docs/interactive-blocks.md)
-* [OpenAPI](dev-docs/openapi.md)
-* [Integrations](dev-docs/integrations.md)
