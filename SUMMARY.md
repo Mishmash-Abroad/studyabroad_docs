@@ -9,8 +9,8 @@
 
 ## Dev Docs
 
-* [Production Deployment Guide](dev-docs/production-deployment-guide.md)
-* [Running Locally](dev-docs/deployment-guide.md)
+* [Deployment Guide](dev-docs/deployment-guide.md)
+* [Development Guide](dev-docs/development-guide.md)
 * [View Server Logs](dev-docs/view-server-logs.md)
 * [Docker Setup](dev-docs/docker-setup.md)
 
