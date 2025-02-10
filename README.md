@@ -42,8 +42,8 @@ Our docs are split into USER DOCS on how to interact with the site and DEV DOCS 
 
 ### Dev Docs
 
-{% content-ref url="dev-docs/deployment-guide.md" %}
-[deployment-guide.md](dev-docs/deployment-guide.md)
+{% content-ref url="dev-docs/running-locally.md" %}
+[running-locally.md](dev-docs/running-locally.md)
 {% endcontent-ref %}
 
 {% content-ref url="dev-docs/docker-setup.md" %}
