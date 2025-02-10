@@ -45,7 +45,7 @@ sudo apt install certbot python3-certbot-nginx -y
 * If using DUKE VCM then run this to setup certbot&#x20;
 
 ```bash
-// Some codesudo certbot --server https://locksmith.oit.duke.edu/acme/v2/directory --email NETID@duke.edu --agree-tos --no-eff-email -d YOURDOMAIN.COM
+sudo certbot --server https://locksmith.oit.duke.edu/acme/v2/directory --email NETID@duke.edu --agree-tos --no-eff-email -d YOURDOMAIN.COM
 ```
 
 * if not using DUKE VCM:
