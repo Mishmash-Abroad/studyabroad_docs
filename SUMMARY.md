@@ -9,7 +9,7 @@
 
 ## Dev Docs
 
-* [Running Locally](dev-docs/running-locally.md)
+* [Running Locally](dev-docs/deployment-guide.md)
 * [Production Deployment Guide](dev-docs/production-deployment-guide.md)
 * [View Server Logs](dev-docs/view-server-logs.md)
 * [Docker Setup](dev-docs/docker-setup.md)

@@ -3,7 +3,7 @@ description: How to run project in a local (non production, non static ) deploym
 icon: arrows-to-circle
 ---
 
-# Deployment Guide
+# Running Locally
 
 
 

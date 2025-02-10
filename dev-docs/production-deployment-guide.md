@@ -11,22 +11,18 @@ icon: arrows-to-circle
 
 * **Operating System**: Specify the Linux distribution (e.g., Ubuntu 20.04, CentOS 7, etc.).
 * **Required Packages**:
-  *   Install Git, Docker, and Docker Compose:
+  *   Install Git
 
       ```bash
-      sudo apt update && sudo apt install -y git docker.io
+      sudo apt update && sudo apt install -y git 
       ```
-  *   Install Docker Compose (latest version):
-
-      ```bash
-      sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-      sudo chmod +x /usr/local/bin/docker-compose
-      ```
+  * Install Docker Compose (latest version): [GUIDE HERE](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository)
+  * add user to docker group: `sudo usermod -aG docker $USER`
   *   Verify installation:
 
       ```bash
       docker --version
-      docker-compose --version
+      docker compose --version
       ```
 * Domain name connected to server IP
   * if using Duke VCM then setup an alias. If not setup a domain name as shown [here](../appendix.md#connect-domain-to-server-ip).
@@ -75,7 +71,7 @@ Certificate is saved at: /etc/letsencrypt/live/YOURDOMAIN.COM/fullchain.pem
 Key is saved at:         /etc/letsencrypt/live/YOURDOMAIN.COM/privkey.pem
 ```
 
-Copy those paths and you will use them to edit the docker config to pass into nginx.
+Copy those paths and you will use them to edit the nginx config inside the github repo to pass into nginx.
 
 setup the code next
 
@@ -90,27 +86,78 @@ setup the code next
 
 **Edit Nginx Config**
 
-once inside /studyabrod, edit the production docker compose file:
+inside the github repo:
+
+replace lines 27 - 28 of /studyabroad/nginx/conf/default.prod.conf to be
+
+```nginx
+
+    # SSL Certificates (Let's Encrypt)
+    ssl_certificate /etc/letsencrypt/live/YOURDOMAIN.COM/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/YOURDOMAIN.COM/privkey.pem;
 
 ```
-nano docker-compose.prod.yml
+
+update the host definitions in the same nginx conf file ( lines 13 / 24) to match your domain
+
+```nginx
+
+# Redirect HTTP to HTTPS
+server {
+    listen 80;
+    listen [::]:80;
+    server_name YOURDOMAIN.COM;
+
+    location / {
+        return 301 https://$server_name$request_uri;
+    }
+}
+
+# HTTPS Server
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name YOURDOMAIN.COM;
+
 ```
 
-replace lines
+update the CSRF cookie domain to match your domain
 
-1. **Start the Application**
-   *   Build and run the application in Docker:
+```nginx
 
-       ```bash
-       docker compose up --build
-       ```
-2. **Access the Application**
+        # CSRF and security settings
+        proxy_cookie_path / "/; HTTPOnly; Secure";
+        proxy_cookie_domain $host YOURDOMAIN.COM;
+    }
+```
+
+**Start the Application**
+
+make sure you are in ./studyabroad
+
+* Build and run the application in Docker:
+*   check that there are not leftover volumes with stale data
+
+    ```bash
+    docker compose -f docker-compose.prod.yml down
+    docker volume rm $(docker volume ls -q)
+    docker compose -f docker-compose.prod.yml up -d --build
+    ```
+
+1. **Check Logs**
+
+```bash
+docker compose logs -f
+```
+
+
+
+1. **Access the Application**
    *   Open the application in your browser:
 
        ```
-       http://localhost:8000
+       https://YOURDOMAIN.COM
        ```
 
 ***
 
-This guide ensures a smooth local deployment using Docker Compose. Let me know if you need further refinements! 🚀
