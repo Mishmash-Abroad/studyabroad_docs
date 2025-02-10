@@ -138,13 +138,10 @@ make sure you are in ./studyabroad
 This loads in the provided data.
 
 * Build and run the application in Docker:
-*   check that there are not leftover volumes with stale data
 
-    ```bash
-    docker compose -f docker-compose.prod.yml down
-    docker volume rm $(docker volume ls -q)
-    docker compose -f docker-compose.prod.yml up -d --build
-    ```
+```bash
+sudo docker compose -f docker-compose.prod.yml up -d --build
+```
 
 1. **Check Logs**
 
@@ -162,4 +159,15 @@ docker compose logs -f
        ```
 
 ***
+
+if code gets modified and you need to redeploy
+
+first remove old volumes with old static files
+
+rebuild contianers
+
+<pre><code>sudo docker compose -f docker-compose.prod.yml down
+<strong>sudo docker volume rm $(docker volume ls -q)
+</strong>sudo docker compose -f docker-compose.prod.yml up -d --build
+</code></pre>
 
