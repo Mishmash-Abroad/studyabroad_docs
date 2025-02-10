@@ -1,6 +1,6 @@
 ---
-description: How to run project in a production deployment.
 icon: arrows-to-circle
+description: How to run project in a production deployment.
 ---
 
 # Production Deployment Guide
@@ -134,6 +134,8 @@ update the CSRF cookie domain to match your domain
 **Start the Application**
 
 make sure you are in ./studyabroad
+
+This loads in the provided data.
 
 * Build and run the application in Docker:
 *   check that there are not leftover volumes with stale data
