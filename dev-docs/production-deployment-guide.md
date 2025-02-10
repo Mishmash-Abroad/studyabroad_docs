@@ -81,7 +81,7 @@ setup the code next
 
     ```bash
     git clone https://github.com/Mishmash-Abroad/studyabroad.git
-    cd /studyabroad
+    cd ./studyabroad
     ```
 
 **Edit Nginx Config**
