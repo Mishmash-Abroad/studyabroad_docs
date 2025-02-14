@@ -9,6 +9,7 @@
 
 ## Dev Docs
 
+* [API Guide](dev-docs/api-guide.md)
 * [Deployment Guide](dev-docs/deployment-guide.md)
 * [Development Guide](dev-docs/development-guide.md)
 * [View Server Logs](dev-docs/view-server-logs.md)
