@@ -17,4 +17,5 @@
 
 ***
 
+* [Security Guide](security-guide.md)
 * [Appendix](appendix.md)
