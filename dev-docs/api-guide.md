@@ -15,6 +15,7 @@ This document provides the OpenAPI 3.0 specification for the Study Abroad Progra
 - **Questions**: Application questions.
 - **Responses**: Responses to application questions.
 - **Announcements**: Program announcements.
+- **Documents**: Document management.
 
 ## Security
 - Most endpoints require authentication.
@@ -26,14 +27,14 @@ This document provides the OpenAPI 3.0 specification for the Study Abroad Progra
 
 ### 1. Programs
 
-**Tag:** `Programs`
+**Tag:** Programs
 
 #### List Programs
-```http
+```
 GET /api/programs/
 ```
 - **Auth:** Optional
-- **Query Params:** `search=<string>`
+- **Query Params:** `search=<string>`, `exclude_ended=<boolean>`
 - **Response:**
 ```json
 [
@@ -47,7 +48,7 @@ GET /api/programs/
 ```
 
 #### Create Program (Admin)
-```http
+```
 POST /api/programs/
 ```
 - **Auth:** Admin
@@ -55,8 +56,9 @@ POST /api/programs/
 ```json
 {
   "title": "Engineering in Germany",
-  "year_semester": "Fall 2025",
-  "faculty_leads": "Dr. Smith",
+  "year": "2025",
+  "semester": "Fall",
+  "faculty_leads": [1, 2],
   "application_open_date": "2025-01-01",
   "application_deadline": "2025-03-15",
   "start_date": "2025-05-01",
@@ -73,26 +75,26 @@ POST /api/programs/
 ```
 
 #### Retrieve Program
-```http
+```
 GET /api/programs/{id}/
 ```
 - **Auth:** Optional
 - **Response:** Program details.
 
 #### Update Program (Admin)
-```http
+```
 PUT /api/programs/{id}/
 ```
 - **Auth:** Admin
 
 #### Delete Program (Admin)
-```http
+```
 DELETE /api/programs/{id}/
 ```
 - **Auth:** Admin
 
 #### Application Status
-```http
+```
 GET /api/programs/{id}/application_status/
 ```
 - **Auth:** User
@@ -105,13 +107,13 @@ GET /api/programs/{id}/application_status/
 ```
 
 #### Applicant Counts (Admin)
-```http
+```
 GET /api/programs/{id}/applicant_counts/
 ```
 - **Auth:** Admin
 
 #### Program Questions
-```http
+```
 GET /api/programs/{id}/questions/
 ```
 - **Auth:** Public
@@ -120,17 +122,17 @@ GET /api/programs/{id}/questions/
 
 ### 2. Applications
 
-**Tag:** `Applications`
+**Tag:** Applications
 
 #### List Applications
-```http
+```
 GET /api/applications/
 ```
 - **Auth:** User/Admin
 - **Query Params:** `student=<id>`, `program=<id>`
 
 #### Create Application
-```http
+```
 POST /api/applications/
 ```
 - **Auth:** User
@@ -145,13 +147,13 @@ POST /api/applications/
 ```
 
 #### Update Application
-```http
+```
 PATCH /api/applications/{id}/
 ```
 - **Auth:** User/Admin
 
 #### Delete Application (Admin)
-```http
+```
 DELETE /api/applications/{id}/
 ```
 
@@ -159,10 +161,10 @@ DELETE /api/applications/{id}/
 
 ### 3. Users
 
-**Tag:** `Users`
+**Tag:** Users
 
 #### Sign Up
-```http
+```
 POST /api/users/signup/
 ```
 - **Auth:** None
@@ -177,7 +179,7 @@ POST /api/users/signup/
 ```
 
 #### Login
-```http
+```
 POST /api/users/login/
 ```
 - **Auth:** None
@@ -190,19 +192,19 @@ POST /api/users/login/
 ```
 
 #### Logout
-```http
+```
 POST /api/users/logout/
 ```
 - **Auth:** Token
 
 #### Current User Info
-```http
+```
 GET /api/users/current_user/
 ```
 - **Auth:** Token
 
 #### Change Password
-```http
+```
 PATCH /api/users/change_password/
 ```
 - **Auth:** Token
@@ -295,6 +297,44 @@ PATCH /api/announcements/{id}/
 DELETE /api/announcements/{id}/
 ```
 - **Auth:** Admin
+
+---
+
+### 7. Documents
+
+**Tag:** Documents
+
+#### List Documents
+```
+GET /api/documents/
+```
+- **Auth:** User/Admin
+- **Query Params:** `application=<id>`
+
+#### Upload Document
+```
+POST /api/documents/
+```
+- **Auth:** User
+- **Request:** Multipart form-data containing the file.
+
+#### Retrieve Document
+```
+GET /api/documents/{id}/
+```
+- **Auth:** User/Admin
+
+#### Update Document
+```
+PATCH /api/documents/{id}/
+```
+- **Auth:** User/Admin
+
+#### Delete Document
+```
+DELETE /api/documents/{id}/
+```
+- **Auth:** User/Admin
 
 ---
 
