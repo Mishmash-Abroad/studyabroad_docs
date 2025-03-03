@@ -18,6 +18,8 @@ AES/TLS encryption addresses this security concern because we can prevent attack
 
 ### MFA
 
+MFA was done through the [Django AllAuth library](https://docs.allauth.org/en/dev/mfa/index.html) which we also used for SSO. It was implemented with authentication apps in mind, with options to use a QR code or a TOTP to activate a device. A viewset in Django was created for interacting with MFA and adjusting the MFA settings for users.
+
 Threat Model We Handle
 - The Asset we are trying to protect
   - Access to a users account and actions that they can take
@@ -29,6 +31,8 @@ Threat Model We Handle
 MFA addresses this security concern because although an attacker can know the user's credentials, if the attacker doesn't have the user's device, they won't be able to login to the system. The attacker must be able to breach both factors of authentication.
 
 ### Session Timeout
+
+Session timeout was done within our AuthContext.js file and it gathers information on whether a user has been moving their mouse or using their keyboard while using the website.
 
 Threat Model We Handle
 - The Asset we are trying to protect
