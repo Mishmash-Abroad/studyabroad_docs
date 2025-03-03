@@ -7,7 +7,7 @@ description: How to run project in a local (non production, non static ) deploym
 
 
 
-### Prerequisites
+## Prerequisites
 
 #### Platform Requirements
 
@@ -52,6 +52,8 @@ description: How to run project in a local (non production, non static ) deploym
 
 ***
 
+# Project Overview
+
 ## Project Structure Overview
 
 mishmash/ 
@@ -79,6 +81,133 @@ mishmash/
 │── manage.py                        # Django command-line utility \
 
 
+## Database Schema
+
+### User
+Stores user information including authentication details.
+
+| Column Name         | Data Type          | Constraints |
+|---------------------|-------------------|-------------|
+| id                 | AutoField (PK)     | Primary Key |
+| username           | CharField(150)     | Unique, Required |
+| password           | CharField(128)     | Required |
+| display_name       | CharField(100)     | Default: "New User" |
+| is_admin           | BooleanField       | Default: False |
+| is_mfa_enabled     | BooleanField       | Default: False |
+| groups             | ManyToManyField    | Related to `auth.Group` |
+| user_permissions   | ManyToManyField    | Related to `auth.Permission` |
+
+---
+
+### Program
+Represents an academic program.
+
+| Column Name                  | Data Type       | Constraints |
+|------------------------------|----------------|-------------|
+| id                           | AutoField (PK) | Primary Key |
+| title                        | CharField(80)  | Required |
+| year                         | CharField(4)   | Required |
+| semester                     | CharField(20)  | Required |
+| description                  | TextField      | Default: "No description provided." |
+| faculty_leads                | ManyToManyField | Related to `User` (Only `is_admin=True` Users) |
+| application_open_date        | DateField      | Nullable |
+| application_deadline         | DateField      | Nullable |
+| essential_document_deadline  | DateField      | Nullable |
+| start_date                   | DateField      | Nullable |
+| end_date                     | DateField      | Nullable |
+
+---
+
+### Application
+Represents a student's application to a program.
+
+| Column Name   | Data Type       | Constraints |
+|--------------|----------------|-------------|
+| id          | AutoField (PK)  | Primary Key |
+| student     | ForeignKey(User) | Required, On Delete CASCADE |
+| program     | ForeignKey(Program) | Required, On Delete CASCADE |
+| date_of_birth | DateField      | Nullable |
+| gpa         | DecimalField(4,3) | Default: 0.000 |
+| major       | CharField(100)  | Default: "Undeclared" |
+| status      | CharField(20)   | Choices: Applied, Enrolled, Eligible, Approved, Completed, Withdrawn, Canceled |
+| applied_on  | DateTimeField   | Auto Now Add |
+
+---
+
+### ApplicationQuestion
+Represents a question in an application form.
+
+| Column Name | Data Type       | Constraints |
+|------------|----------------|-------------|
+| id        | AutoField (PK)  | Primary Key |
+| text      | TextField       | Default: "Default question text." |
+| program   | ForeignKey(Program) | Required, On Delete CASCADE |
+| is_required | BooleanField   | Default: True |
+
+---
+
+### ApplicationResponse
+Represents a student's response to an application question.
+
+| Column Name  | Data Type        | Constraints |
+|-------------|-----------------|-------------|
+| id         | AutoField (PK)   | Primary Key |
+| application | ForeignKey(Application) | Required, On Delete CASCADE |
+| question   | ForeignKey(ApplicationQuestion) | Required, On Delete CASCADE |
+| response   | TextField        | Default: "" |
+
+- **Constraints:** UniqueConstraint(application, question) to ensure one response per question.
+
+---
+
+### ConfidentialNote
+Represents confidential notes on an application, visible only to admins.
+
+| Column Name | Data Type       | Constraints |
+|------------|----------------|-------------|
+| id        | AutoField (PK)  | Primary Key |
+| author    | ForeignKey(User) | Nullable, On Delete SET_NULL |
+| application | ForeignKey(Application) | Required, On Delete CASCADE |
+| content   | TextField       | Default: Confidential text |
+| timestamp | DateTimeField   | Default: `now()` |
+
+---
+
+### Announcement
+Represents announcements for the program.
+
+| Column Name   | Data Type       | Constraints |
+|--------------|----------------|-------------|
+| id          | AutoField (PK)  | Primary Key |
+| title       | CharField(200)  | Required |
+| content     | JSONField       | Required |
+| cover_image | ImageField      | Nullable |
+| pinned      | BooleanField    | Default: False |
+| importance  | CharField(10)   | Choices: low, medium, high, urgent |
+| is_active   | BooleanField    | Default: True |
+| created_by  | ForeignKey(User) | Nullable, On Delete SET_NULL |
+| created_at  | DateTimeField   | Auto Now Add |
+| updated_at  | DateTimeField   | Auto Now |
+
+- **Indexes:** (`-created_at`), (`importance`, `-created_at`)
+
+---
+
+### Document
+Represents documents uploaded for an application.
+
+| Column Name  | Data Type        | Constraints |
+|-------------|-----------------|-------------|
+| id         | AutoField (PK)   | Primary Key |
+| title      | CharField(255)   | Required |
+| pdf        | FileField        | Required (Upload path: `pdfs/`) |
+| uploaded_at | DateTimeField   | Auto Now Add |
+| application | ForeignKey(Application) | Required, On Delete CASCADE |
+| type       | CharField(100)   | Choices: Risk Form, Code of Conduct, Housing Questionnaire, Medical Records |
+
+---
+
+# Creating New Features
 
 ## Creating New Pages (Frontend)
 
