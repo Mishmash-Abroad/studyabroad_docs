@@ -42,7 +42,7 @@ Session Timeout addresses this security concern because although the attacker ca
 
 ### Audit Logging
 
-Audit logging was achieved by leveraging Django's ![established audit logging](https://django-auditlog.readthedocs.io/en/latest/). 
+Audit logging was achieved by leveraging Django's [established audit logging](https://django-auditlog.readthedocs.io/en/latest/). 
 
 ![image](https://github.com/user-attachments/assets/d693fd20-1157-4da6-92f9-943bdc5984b9)
 
