@@ -4,7 +4,14 @@ Create a Security Guide documenting HIPAA/FERPA-level security measures, includi
 
 ## HIPAA/FERPA-level security measures
 
-PDFs access is moderated so only logged in users with correct access can view the proper pdfs.&#x20;
+To ensure that PDFs are viewed only by the correct logged-in user, the application implements the following security measures:
+
+* **Custom Permission Class**: **IsDocumentOwnerOrAdmin** ensures that only the document owner or an admin can access the document. Admins have read-only access.
+* **Document ViewSet**: The **DocumentViewSet** uses the **IsDocumentOwnerOrAdmin** permission class to enforce access control.
+* **PDFUploadForm Component**: Fetches and displays documents based on the logged-in user's application ID, ensuring only authorized access.
+* **DocumentStatusDisplay Component**: Displays the status of required documents and allows viewing if the user has the correct permissions.
+
+
 
 ### AES-256 / TLS Encryptions
 
