@@ -19,3 +19,4 @@
 
 * [Security Guide](security-guide.md)
 * [Appendix](appendix.md)
+* [Add secrets](add-secrets.md)
