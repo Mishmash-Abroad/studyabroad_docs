@@ -9,8 +9,13 @@
 
 <figure><img src=".gitbook/assets/Screenshot 2025-03-24 at 10.47.08 AM.png" alt=""><figcaption></figcaption></figure>
 
+4. update all 3 docker compose files to pass the secret from the server env into the container env.\
+   ![](<.gitbook/assets/Screenshot 2025-03-24 at 10.48.16 AM.png>)
 
+for example, for a backend service docker compose.&#x20;
 
+<figure><img src=".gitbook/assets/Screenshot 2025-03-24 at 10.49.24 AM.png" alt=""><figcaption></figcaption></figure>
 
+4. if you want the secret to go into the django backend, take the secret from the container env into the django settings.py
 
-1.
+<figure><img src=".gitbook/assets/Screenshot 2025-03-24 at 10.51.06 AM.png" alt=""><figcaption></figcaption></figure>
