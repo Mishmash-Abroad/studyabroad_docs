@@ -79,6 +79,6 @@ You are done with loading a backup!
 If you would like to verify that a backup is valid, here is how to do it.
 
 ### Step 1: Choose a backup
-(backup-guide.md# Step 1: Choose a backup)
+(backup-guide.md#Step-1:-Choose-a-backup)
 
 
