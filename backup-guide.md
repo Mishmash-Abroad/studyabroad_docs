@@ -40,8 +40,41 @@ Log into the production server and log into the backend container using a comman
 
 Run the python manage command to decrypt the file such as
 
-`python manage.py decrypt_db input_file output_file --aes-key=$AES_CIPHER_KEY`
+`python manage.py decrypt_db encrypted_input_file decrypted_output_file.tar.bz2 --aes-key=$AES_CIPHER_KEY`
 
+### Step 5: Unzip the decrypted file
 
+Once you have the decrypted_output_file.tar.bz2, unzip it using a command like this
+
+`bzip2 -d decrypted_output_file.tar.bz2`
+
+This will replace the compressed file with the uncompressed version.
+
+### Step 6: Run python manage.py loaddata
+
+Once you unzip the file, you will see that it reveals a folder with a structure like this
+
+decrypted_uncompressed_output_file
+- meta.json
+- data.json
+- folder_1/data_file_1.png
+- folder_1/data_file_2.png
+- folder_2/data_file_1.png
+
+This is merely an example. You will want to load the data.json fixture file into the Django database that you are using. This will be done with this command
+
+`python manage.py loaddata data.json`
+
+Next you will want to load the data that was revealed from the folder_1, folder_2, etc into the media folder of the Django database container.
+
+This can be done with a command like
+
+`mv decrypted_uncompressed_output_file/folder_1 /app/media`
+
+### Step 7: Complete!
+
+You are done with loading a backup!
 
 ## Testing a Backup for Validity
+
+
