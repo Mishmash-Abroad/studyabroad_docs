@@ -78,7 +78,16 @@ You are done with loading a backup!
 ## Testing a Backup for Validity
 If you would like to verify that a backup is valid, here is how to do it.
 
-### Step 1: Choose a backup
-[Step 1: Choose a backup](#step-1-choose-a-backup)
+### [Step 1: Choose a backup](#step-1-choose-a-backup)
+
+### Step 2: Deploy a new system
+
+You can follow our deployment guide to see how to deploy a new system
+
+### [Step 3: Load the backup](#restoring-the-database-to-any-given-backup)
+
+### Step 4: Log in to the system with the admin account
+
+Once the system has been loaded with the backed up data, you can log in as the admin account (or any other user) and verify that files and data have been preserved.
 
 
