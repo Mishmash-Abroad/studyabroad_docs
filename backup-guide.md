@@ -76,5 +76,9 @@ This can be done with a command like
 You are done with loading a backup!
 
 ## Testing a Backup for Validity
+If you would like to verify that a backup is valid, here is how to do it.
+
+### Step 1: Choose a backup
+(backup-guide.md# Step 1: Choose a backup)
 
 
