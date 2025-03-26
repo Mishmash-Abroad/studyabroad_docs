@@ -176,6 +176,61 @@ rebuild contianers
 </strong>sudo docker compose -f docker-compose.prod.yml up -d --build
 </code></pre>
 
+## Backups Set Up Guide
+
+To deploy your backups solution
+
+### Step 1: Create a backup server
+
+A backup server can be a separate device or a virtual computer. It is imperative that the backup server is not the same as the production server.
+
+Once you have created the backup server, log in with a user and copy the backup_script.sh file into the home directory of the user. This can be done with SCP, copy and paste or any other method you like.
+
+Example of the backup server vcm home directory
+![image](https://github.com/user-attachments/assets/4187c9bc-164e-46af-8fe0-92bbfcfe3f97)
+
+The backup_script works by taking in a path, a server name, and a number. The path is where to save the backup files, the server name is from which server to save backups from and the number indicates the number of backups to save in the path. The system will only retain the N latest backups in the folder.
+
+Create a folder such as dev_backups, and within it create more folders for daily_backups, weekly_backups, and monthly_backups.
+
+This is merely a template and can be changed according to your needs.
+![image](https://github.com/user-attachments/assets/5aafed14-7d07-4894-8d84-3e10db6cc63e)
+
+Create a cronjob for the backup script following the template below.
+
+`15 18 * * * echo /home/vcm/backup_script.sh /home/vcm/dev_backups/daily_backups dev-mishmash.colab.duke.edu 7 >> /var/log/daily_backup_dev_script.log 2>&1`
+![image](https://github.com/user-attachments/assets/eba8bb0e-7957-473b-b601-d907ed1e0984)
+
+The best principle is that at a certain time of day, a backup will be copied from the production server to the backup server, and a certain day of the week, this process will happen, and a certain day of the month it will also happen. 
+
+You can edit the parameters for path, servername and the numbers for how many backups to keep.
+
+Then you can start cron!
+
+### Step 2: Log into the production server and log into the backend container
+
+Log onto the production server using the proper credentials
+
+go into ~/studyabroad and access the backend container
+
+`cd ~/studyabroad`
+`docker exec -u 0 -it studyabroad-backend-1 bash`
+
+Once you can access the backend container, initialize cron
+
+`cron`
+
+then run this
+
+`crontab -e`
+
+This will instantiate a cronfile to create a cronjob. Add this to the bottom of the file
+
+`30 6 * * * root /app/run_backup.sh`
+
+Here, this will run the backup script at 6:30am every day. You can change these values accordingly.
+
+### Complete!
 
 ## Disaster Recovery
 
