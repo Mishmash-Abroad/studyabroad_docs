@@ -201,7 +201,9 @@ Create a cronjob for the backup script following the template below.
 `15 18 * * * echo /home/vcm/backup_script.sh /home/vcm/dev_backups/daily_backups dev-mishmash.colab.duke.edu 7 >> /var/log/daily_backup_dev_script.log 2>&1`
 ![image](https://github.com/user-attachments/assets/eba8bb0e-7957-473b-b601-d907ed1e0984)
 
-The best principle is that at a certain time of day, a backup will be copied from the production server to the backup server, and a certain day of the week, this process will happen, and a certain day of the month it will also happen. 
+The base principle is that at a certain time of day, a backup will be copied from the production server to the backup server, and a certain day of the week, this process will happen, and a certain day of the month it will also happen. 
+
+If you wish to follow the command above exactly, you must create a XXX_backup_dev_script.log files within /var/log/. This will be where any errors or bugs will be logged, aside from the email alerts. Make sure that these files are writable by the user of the crontab.
 
 You can edit the parameters for path, servername and the numbers for how many backups to keep.
 
