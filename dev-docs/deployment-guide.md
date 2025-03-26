@@ -176,3 +176,12 @@ rebuild contianers
 </strong>sudo docker compose -f docker-compose.prod.yml up -d --build
 </code></pre>
 
+
+## Disaster Recovery
+
+If you are trying to recover a system that has been lost.
+
+### [Step 1: Follow the Production Deployment Guide](#production-deployment-guide)
+
+### [Step 2: Follow the How to Reload a Backup Guide](#backup-guide.md#)
+
