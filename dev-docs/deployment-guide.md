@@ -216,6 +216,8 @@ Log onto the production server using the proper credentials
 go into ~/studyabroad and access the backend container
 
 `cd ~/studyabroad`
+
+
 `docker exec -u 0 -it studyabroad-backend-1 bash`
 
 Once you can access the backend container, initialize cron
