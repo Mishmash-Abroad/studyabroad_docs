@@ -229,7 +229,7 @@ then run this
 
 This will instantiate a cronfile to create a cronjob. Add this to the bottom of the file
 
-`30 6 * * * root /app/run_backup.sh`
+`* * * * * /app/run_backup.sh`
 
 Here, this will run the backup script at 6:30am every day. You can change these values accordingly.
 
