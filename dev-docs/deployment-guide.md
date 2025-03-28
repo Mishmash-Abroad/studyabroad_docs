@@ -209,6 +209,57 @@ You can edit the parameters for path, servername and the numbers for how many ba
 
 Then you can start cron!
 
+Create a user in /etc/passwd by copy pasting this line at the bottom
+
+`backup_admin:x:8404482:1002::/home/vcm:/bin/bash`
+
+Then add this to /etc/shadow as well
+
+`backup_admin:{PASSWORD HASH HERE}:20164:0:99999:7:::`
+
+Make a home directory
+
+`sudo mkdir /home/backup_admin`
+
+And then
+`sudo chown backup_admin backup_admin/`
+
+and 
+
+`sudo chown backup_admin backup_admin/.ssh`
+
+and 
+
+`sudo chown backup_admin backup_admin/.ssh/authorized_keys`
+
+
+make a .ssh config to differentiate the multiple server logins
+
+````
+Host prod mishmash.colab.duke.edu
+    HostName mishmash.colab.duke.edu
+    IdentityFile ~/.ssh/prod_id_rsa
+    User backup_admin
+
+Host dev dev-mishmash.colab.duke.edu
+    HostName dev-mishmash.colab.duke.edu
+    IdentityFile ~/.ssh/id_rsa
+    User backup_admin
+
+````
+
+Then you want to create an ssh keygen pair between backup server and production server
+`ssh-keygen`
+
+When prompted for where to save it, you can name it whatever you like. For these purposes we will name it prod_id_rsa and save it in the ~/.ssh file path
+
+Then you want to copy it to the prod server
+
+`ssh-copy-id -i ~/.ssh/prod_id_rsa backup_admin@mishmash.colab.duke.edu`
+
+
+
+
 ### Step 2: Log into the production server and log into the backend container
 
 Log onto the production server using the proper credentials
@@ -229,9 +280,13 @@ then run this
 
 This will instantiate a cronfile to create a cronjob. Add this to the bottom of the file
 
-`* * * * * /app/run_backup.sh`
+`0 7 * * * /bin/bash -c 'set -a; source /app/.env; set +a; /app/run_backup.sh'`
 
-Here, this will run the backup script at 6:30am every day. You can change these values accordingly.
+Ideally .env will contain the environment variables necessary for the operation of run_backup.sh. If you need to create an environment file from scratch simply use this command
+
+`env > /app/.env`
+
+The cronjob will run every day at 7 am exactly.
 
 ### Complete!
 
