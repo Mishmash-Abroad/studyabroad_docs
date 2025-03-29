@@ -94,3 +94,18 @@ No changes were needed in order to achieve this qualification.
 ## Mozilla Observatory Report
 
 {% file src=".gitbook/assets/Scan results for mishmash.colab.duke.edu _ HTTP Observatory _ MDN.pdf" %}
+
+
+## System Monitoring
+
+Threat Model
+
+* The Asset we are trying to protect
+  * Attackers changing files in the code base and/or adding malicious files
+* The Attacker Capabilities
+  * attackers can access the codebase files and make changes
+* The Attacker Knowledge
+  * attacker knows where the codebase is
+ 
+File monitoring addresses this threat because if the attacker changes anything in the code base then it will get picked up and we will be alerted if something goes wrong. This way we can go in and fix it and hopefully, paired with our audit logging, we can identify the culprit.
+
