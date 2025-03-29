@@ -151,3 +151,42 @@ Threat Model We Handle
 
 Audit logging addresses this security concern because the attacker can be caught in the act of performing malicious actions using a user's credentials, and subsequently they can be stopped or potentially identified. Once malicious actions have been identified, we can look through the audit logs and see who performed such actions and when, which will help us prevent future attacks.
 
+
+### File Monitoring
+
+Threat Model
+
+The Asset we are trying to protect
+
+Attackers changing files in the code base and/or adding malicious files
+
+The Attacker Capabilities
+
+attackers can access the codebase files and make changes
+
+The Attacker Knowledge
+
+attacker knows where the codebase is
+
+File monitoring addresses this threat because if the attacker changes anything in the code base then it will get picked up and we will be alerted if something goes wrong. This way we can go in and fix it and hopefully, paired with our audit logging, we can identify the culprit.
+
+
+# Implementation and deployment
+
+File monitoring is implemented by using the studyabroad/monitoring.sh script. This script will run through all of the files in the code base and verify that none of them have changed. You can make a cronjob in the production environment like this
+
+`0 * * * * sudo /home/vcm/studyabroad/monitoring.sh`
+
+This will run the monitoring script every hour.
+
+In order to instantiate the monitoring script with the right hashes for the codebase, run this command
+
+`hashdeep -r /home/vcm/studyabroad/ > ~/hash_values.txt`
+
+manual audit
+
+`hashdeep -r -a -k /home/vcm/hash_values.txt /home/vcm/studyabroad`
+
+
+
+
