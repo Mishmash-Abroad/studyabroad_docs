@@ -257,7 +257,11 @@ Then you want to copy it to the prod server
 
 `ssh-copy-id -i ~/.ssh/prod_id_rsa backup_admin@mishmash.colab.duke.edu`
 
+` sudo touch /var/log/prod_daily_backup_script.log /var/log/prod_monthly_backup_script.log /var/log/prod_weekly_backup_script.log`
 
+and then
+
+`sudo chown vcm /var/log/prod_daily_backup_script.log /var/log/prod_monthly_backup_script.log /var/log/prod_weekly_backup_script.log`
 
 
 ### Step 2: Log into the production server and log into the backend container
