@@ -188,5 +188,6 @@ manual audit
 `hashdeep -r -a -k /home/vcm/hash_values.txt /home/vcm/studyabroad`
 
 
-
+Also make this file for documentation
+` sudo touch /var/log/file_monitoring.log`
 
