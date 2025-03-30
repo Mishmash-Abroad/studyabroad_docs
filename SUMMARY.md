@@ -9,6 +9,7 @@
 
 ## Dev Docs
 
+* [Backup Guide](dev-docs/backup-guide.md)
 * [API Guide](dev-docs/api-guide.md)
 * [Deployment Guide](dev-docs/deployment-guide.md)
 * [Development Guide](dev-docs/development-guide.md)
