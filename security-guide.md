@@ -109,3 +109,15 @@ Threat Model
  
 File monitoring addresses this threat because if the attacker changes anything in the code base then it will get picked up and we will be alerted if something goes wrong. This way we can go in and fix it and hopefully, paired with our audit logging, we can identify the culprit.
 
+
+## Security Hardened Backups
+
+* The Asset we are trying to protect
+  * Backups of the system
+* The Attacker Capabilities
+  * attacker has full access to the production server
+* The Attacker Knowledge
+  * Attacker knows the location of every file they are interested in as well as the hostname of the backupserver
+ 
+ Security hardened backups protects us from this threat model because even if an attacker has full control over the production server, they have no way of accessing the backup server because they have no credentials accessible to access it. Also they would need the encryption key in order to do anything with it
+ 
