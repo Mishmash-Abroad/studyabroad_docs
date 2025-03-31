@@ -302,5 +302,5 @@ If you are trying to recover a system that has been lost.
 
 ### [Step 1: Follow the Production Deployment Guide](#production-deployment-guide)
 
-### [Step 2: Follow the How to Reload a Backup Guide](#backup-guide.md#)
+### [Step 2: Follow the How to Reload a Backup Guide](https://duke-ece-458.gitbook.io/mishmash/dev-docs/backup-guide#restoring-the-database-to-any-given-backup)
 
