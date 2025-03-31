@@ -187,6 +187,8 @@ A backup server can be a separate device or a virtual computer. It is imperative
 Once you have created the backup server, log in with a user and copy the backup_script.sh file into the home directory of the user. This can be done with SCP, copy and paste or any other method you like.
 
 Example of the backup server vcm home directory
+
+
 ![image](https://github.com/user-attachments/assets/4187c9bc-164e-46af-8fe0-92bbfcfe3f97)
 
 The backup_script works by taking in a path, a server name, and a number. The path is where to save the backup files, the server name is from which server to save backups from and the number indicates the number of backups to save in the path. The system will only retain the N latest backups in the folder.
