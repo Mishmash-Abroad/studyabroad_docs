@@ -11,8 +11,6 @@ To ensure that PDFs are viewed only by the correct logged-in user, the applicati
 * **PDFUploadForm Component**: Fetches and displays documents based on the logged-in user's application ID, ensuring only authorized access.
 * **DocumentStatusDisplay Component**: Displays the status of required documents and allows viewing if the user has the correct permissions.
 
-
-
 ### AES-256 / TLS Encryptions
 
 * **TLS Enforcement:** All HTTP traffic is redirected to HTTPS using TLS v1.2 & v1.3 for secure data transmission.
@@ -23,7 +21,7 @@ To ensure that PDFs are viewed only by the correct logged-in user, the applicati
 * **Session Protection:** Cookies are set with `HttpOnly; Secure` flags to prevent **XSS and session hijacking**.
 * **Cache Control:** Static files have **long expiration (30 days)**, while dynamic content is set to **no-store** to prevent outdated pages.
 * **Gzip Compression:** Enabled for static/media files to **improve performance** while maintaining security.
-* **Admin Panel Security:** CSRF protection enforced via secure **proxy cookie settings** and domain&#x20;
+* **Admin Panel Security:** CSRF protection enforced via secure **proxy cookie settings** and domain
 
 ### Threat models we handle
 
@@ -95,7 +93,6 @@ No changes were needed in order to achieve this qualification.
 
 {% file src=".gitbook/assets/Scan results for mishmash.colab.duke.edu _ HTTP Observatory _ MDN.pdf" %}
 
-
 ## System Monitoring
 
 Threat Model
@@ -106,9 +103,8 @@ Threat Model
   * attackers can access the codebase files and make changes
 * The Attacker Knowledge
   * attacker knows where the codebase is
- 
-File monitoring addresses this threat because if the attacker changes anything in the code base then it will get picked up and we will be alerted if something goes wrong. This way we can go in and fix it and hopefully, paired with our audit logging, we can identify the culprit.
 
+File monitoring addresses this threat because if the attacker changes anything in the code base then it will get picked up and we will be alerted if something goes wrong. This way we can go in and fix it and hopefully, paired with our audit logging, we can identify the culprit.
 
 ## Security Hardened Backups
 
@@ -118,6 +114,37 @@ File monitoring addresses this threat because if the attacker changes anything i
   * attacker has full access to the production server
 * The Attacker Knowledge
   * Attacker knows the location of every file they are interested in as well as the hostname of the backupserver
- 
- Security hardened backups protects us from this threat model because even if an attacker has full control over the production server, they have no way of accessing the backup server because they have no credentials accessible to access it. Also they would need the encryption key in order to do anything with it
- 
+
+Security hardened backups protects us from this threat model because even if an attacker has full control over the production server, they have no way of accessing the backup server because they have no credentials accessible to access it. Also they would need the encryption key in order to do anything with it
+
+
+
+***
+
+## Vulnerabilty monitoring
+
+
+
+We use dependabot for chekcing for vulnerabilites in our dependencies and CodeQL for scanning our codebase for vulnerabilities. \
+
+
+
+
+Dependabot demonstration:
+
+### Dependabot Demonstration
+
+
+
+### vulnerability detected:
+
+<figure><img src=".gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src=".gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+
+Fix implemented:
+
+<figure><img src=".gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+
+
+
