@@ -15,6 +15,7 @@
 * [Development Guide](dev-docs/development-guide.md)
 * [View Server Logs](dev-docs/view-server-logs.md)
 * [Docker Setup](dev-docs/docker-setup.md)
+* [Integrate Transcript Provider](dev-docs/integrate-transcript-provider.md)
 
 ***
 
