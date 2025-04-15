@@ -83,7 +83,7 @@ Audit logging addresses this security concern because the attacker can be caught
 
 ## Qualys SSL Report
 
-<figure><img src=".gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src=".gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 No changes were needed in order to achieve this qualification.
 
