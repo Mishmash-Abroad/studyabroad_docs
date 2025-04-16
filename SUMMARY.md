@@ -9,6 +9,7 @@
 
 ## Dev Docs
 
+* [SSO New Provider Guide](dev-docs/sso-new-provider-guide.md)
 * [Backup Guide](dev-docs/backup-guide.md)
 * [API Guide](dev-docs/api-guide.md)
 * [Deployment Guide](dev-docs/deployment-guide.md)
