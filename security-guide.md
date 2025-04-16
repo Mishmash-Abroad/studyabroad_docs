@@ -148,5 +148,135 @@ Fix implemented:'
 
 <figure><img src=".gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
 
+***
 
+## SSO Provider&#x20;
+
+
+
+### Overview
+
+The application implements Single Sign-On (SSO) authentication using Duke University's OpenID Connect (OIDC) provider. This integration allows Duke users to seamlessly log into the application using their Duke credentials.
+
+### Technical Implementation
+
+#### Backend Configuration
+
+**Settings**
+
+The SSO integration is configured in settings.py with the following key components:
+
+```python
+SOCIALACCOUNT_PROVIDERS = {    "openid_connect": {        "OAUTH_PKCE_ENABLED": True,        "APPS": [            {                "provider_id": "duke-oidc",                "name": "Duke University Login",                "client_id": "ece-spring-2025-sc814",                "secret": OIDC_CLIENT_SECRET,                "settings": {                    "server_url": "https://oauth.oit.duke.edu/oidc",                    "token_auth_method": "client_secret_basic",                    "oauth_pkce_enabled": True,                }            }        ]    }}Key settings:
+PKCE (Proof Key for Code Exchange) is enabled for enhanced security
+Uses Duke's OIDC server URL: https://oauth.oit.duke.edu/oidc
+Custom social account adapter is configured: SOCIALACCOUNT_ADAPTER = "api.adapters.CustomSocialAccountAdapter"
+```
+
+
+
+#### User Model
+
+The User model includes SSO-specific functionality
+
+
+
+```python
+
+class User(AbstractUser):
+    @property    def is_sso(self):
+            """Check if user logged in via SSO."""        
+            if not self.pk:
+                return False
+                return SocialAccount.objects.filter(user=self).exists()
+```
+
+#### Custom Social Account Adapter
+
+The application uses a custom adapter (CustomSocialAccountAdapter) to properly map SSO data to user fields
+
+
+
+
+
+
+
+&#x20;`CustomSocialAccountAdapter(DefaultSocialAccountAdapter):    def populate_user(self, request, sociallogin, data):        user = super().populate_user(request, sociallogin, data)                extra_data = sociallogin.account.extra_data        duke_net_id = extra_data.get("dukeNetID")        full_name = extra_data.get("name")                user.username = duke_net_id        user.display_name = full_name if full_name else "New User"                return user`
+
+### Frontend Implementation
+
+#### Authentication Flow
+
+1. Login Button: The SSO login option is presented to users in the LoginModal component `<FormButton type="button" onClick={handleDukeSSOLogin}>    Login with Duke SSO</FormButton>`
+2. SSO Redirect: When users click the Duke SSO button, they are redirected to Duke's OIDC login endpoint `const handleDukeSSOLogin = () => {    window.location.href = "/api/accounts/oidc/duke-oidc/login/";};`
+
+#### Session Management
+
+The AuthContext provides session management for SSO users:
+
+* Automatic token verification on app startup
+* Session persistence across page refreshes
+* Automatic user data refresh when needed
+
+#### User Interface Considerations
+
+SSO users have certain restrictions in the UI:
+
+* Cannot change their password
+* Cannot manually connect Ulink accounts
+* Have automatic Ulink integration based on their Duke NetID
+
+### Security Features
+
+1. Session Security:
+
+* Secure session cookies enabled: SESSION\_COOKIE\_SECURE = True
+* CSRF protection with trusted origins configured
+* Session timeout settings for both inactivity and absolute timeouts
+
+1. API Security:
+
+* Token-based authentication for API requests
+* Session authentication for browsable API
+* CORS configuration for frontend communication
+
+### Special Considerations
+
+1. SSO User Restrictions:
+
+* SSO users cannot manually change their passwords
+* SSO users cannot be deleted through the normal user deletion process
+* SSO users have automatic Ulink account integration
+
+1. Ulink Integration:
+
+* SSO users' Ulink usernames are automatically set to their Duke NetID
+* The system prevents duplicate Ulink username assignments
+
+### Error Handling
+
+The system includes proper error handling for various SSO-related scenarios:
+
+1. Missing Duke NetID `if not duke_net_id:       raise ValidationError("SSO response does not contain a valid 'dukeNetID' field.")`
+2. SSO Session Detection: `catch (err) {       console.error("No SSO session detected.", err);   }`
+
+### Best Practices
+
+1. Security:
+
+* Use HTTPS for all SSO-related communications
+* Implement PKCE for enhanced security
+* Properly handle session timeouts and token expiration
+
+1. User Experience:
+
+* Provide clear login options for SSO users
+* Handle SSO-specific restrictions gracefully in the UI
+* Implement automatic Ulink integration for seamless user experience
+
+1. Error Handling:
+
+* Implement proper error handling for SSO-related operations
+* Provide clear error messages to users
+* Log SSO-related errors for debugging
 
