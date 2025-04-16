@@ -23,3 +23,4 @@
 * [Security Guide](security-guide.md)
 * [Appendix](appendix.md)
 * [Add secrets](add-secrets.md)
+* [New Email Provider](new-email-provider.md)
